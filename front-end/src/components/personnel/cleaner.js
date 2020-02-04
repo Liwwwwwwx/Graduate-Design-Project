@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-class Clening extends Component {
+class Cleaner extends Component {
     state = {  }
     render() { 
         return ( 
@@ -8,4 +8,4 @@ class Clening extends Component {
     }
 }
  
-export default Clening;
+export default Cleaner;

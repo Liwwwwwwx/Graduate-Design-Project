@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-class Clening extends Component {
+
+class Personnel extends Component {
     state = {  }
     render() { 
         return ( 
-            <li>保洁</li>
+            <li>人事</li>
          );
     }
 }
  
-export default Clening;
+export default Personnel;
