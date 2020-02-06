@@ -18,6 +18,8 @@ import Committee from './components/personnel/committee';
 
 import {Layout, Menu, Breadcrumb, Icon, Row, Col, Slider } from 'antd';
 import {HashRouter as Router,Route,Link,NavLink,Redirect} from 'react-router-dom';
+import Detail from './components/detail';
+import { DEFAULT_ECDH_CURVE } from 'tls';
 
 const {SubMenu} = Menu;
 const { Header, Content, Sider } = Layout;
@@ -30,6 +32,7 @@ class App extends Component {
   render() { 
     return ( 
       <Layout>
+        {/* Header */}
         <Header className="header" style={{height:50,paddingLeft:5,paddingRight:5}}>
             <Icon className="Logo" type="bug" style={{fontSize:40,width:60,height:50,paddingTop:5,color:"#ffffff",float:"left"}}/>
             <div className="Name" style={{
@@ -53,11 +56,13 @@ class App extends Component {
                 杰克船长
               </div>
         </Header>
+        {/* Middle */}
         <Layout>
+          {/* 导航栏 */}
           <Sider>
           <Menu
           onClick={this.handleClick}
-          style={{height: '100%', borderRight: 0}}
+          style={{height: '100%', borderRight: 0,width:240,color:'#607D8B'}}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode="inline"
@@ -162,7 +167,8 @@ class App extends Component {
             </Menu.Item>      
           </Menu>      
           </Sider>
-          <Content style={{padding: 24, margin: 0, minHeight: 280}}>
+          {/* 右边组件路由 */}
+          <Content style={{ marginLeft: 60, minHeight: 280}}>
             <Route path="/residents" component={Resident}/>
             <Route path="/units" component={Unit}/>
             <Route path="/house" component={House} />
@@ -175,6 +181,7 @@ class App extends Component {
             <Route path="/fault" component={Fault}/>
             <Route path="/cleaning" component={Cleaning}/>
             <Route path="/user" component={User}/>
+            <Route path="/detail" component={Detail}/>
             <Route exact path="/" render={()=><Redirect to='/residents' />} />
           </Content>
         </Layout>        
