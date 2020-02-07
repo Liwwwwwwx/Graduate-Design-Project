@@ -48,8 +48,7 @@ const columns = [
                 to={{pathname:'/detail'}}>
             <Icon type="eye"/>
             </NavLink>
-            {/* <a style={{padding:10}} href="../detail"><Icon type="eye"/></a> */}
-            <a><Icon type="edit"/></a>
+            <NavLink to={{pathname:'/addres'}}><Icon type="edit"/></NavLink>
             <a style={{padding:10}}><Icon type="delete"/></a>
         </span>
       ),
