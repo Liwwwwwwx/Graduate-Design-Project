@@ -2,31 +2,39 @@ import React, { Component } from 'react';
 import { Table, Divider, Tag, Icon, Layout,Input,Form,Modal,Radio} from 'antd';
 import {HashRouter as Router,Route,Link,NavLink,Redirect} from 'react-router-dom';
 
-import Detail from './detail';
-
 const {Search} = Input;
 
 const columns = [
     {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
+      title: '房屋构造',
+      dataIndex: 'structure',
+      key: 'structure',
       render: text => <a>{text}</a>,
     },
     {
-        title: '家庭地址',
-        dataIndex: 'address',
-        key: 'address',
+      title: '面积',
+      dataIndex: 'area',
+      key: 'area',
     },
     {
-      title: '职位',
-      dataIndex: 'position',
-      key: 'position',
+      title: '地址',
+      dataIndex: 'address',
+      key: 'address',
     },
     {
-        title: '员工合同',
-        dataIndex: 'contract',
-        key: 'contract',
+        title: '出售信息',
+        dataIndex: 'selling',
+        key: 'selling',
+    },
+    {
+        title: '基础设备',
+        dataIndex: 'equipment',
+        key: 'equipment',
+        // render:()=>(
+        //     <span>
+        //         <a href="http://www.baidu.com">http://www.baidu.com</a>
+        //     </span>
+        // ),
     },
     {
       title: '操作',
@@ -38,33 +46,29 @@ const columns = [
                 to={{pathname:'/detail'}}>
             <Icon type="eye"/>
             </NavLink>
-            <NavLink to={{pathname:'/addres'}}><Icon type="edit"/></NavLink>
+            <NavLink to={{pathname:'/addhou'}}><Icon type="edit"/></NavLink>
             <a style={{padding:10}}><Icon type="delete"/></a>
         </span>
       ),
     },
   ];
 
-//   数据
+  
 const data = [];
 for (let i = 0; i < 20; i++) {
   data.push({
-    name: i,
+    structure: i,
+    area: `Edward King ${i}`,
     address: `London, Park Lane no. ${i}`,
-    position:`${i}`,
-    contract:`http://www.${i}`
+    selling:i,
+    equipment:`${i}`
   });
 }
 
-
-  
-
-class Personnel extends Component {
+class Houser extends Component {
     state = {  }
-    
     render() { 
         return ( 
-            // <li>单元</li>
             <Layout>
                 <div style={{
                     marginTop:12,
@@ -72,7 +76,7 @@ class Personnel extends Component {
                     paddingBottom:5,
                     fontSize:14,
                     color:'#607D8B'}}>
-                人事管理
+                房屋信息
                 </div>
                 <div style={{marginTop:15}}>
                     <Search
@@ -83,9 +87,8 @@ class Personnel extends Component {
                 </div>
                 <Table columns={columns} dataSource={data} style={{marginTop:20}} />
             </Layout>
-            
          );
     }
 }
  
-export default Personnel;
+export default Houser;

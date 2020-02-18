@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Divider, Tag, Icon, Layout,Input} from 'antd';
+import { Table, Divider, Tag, Icon, Layout,Input,Form,Modal,Radio} from 'antd';
 import {HashRouter as Router,Route,Link,NavLink,Redirect} from 'react-router-dom';
 
 import Detail from '../detail';
@@ -14,9 +14,9 @@ const columns = [
       render: text => <a>{text}</a>,
     },
     {
-      title: '家庭成员',
-      dataIndex: 'member',
-      key: 'member',
+      title: '电话号码',
+      dataIndex: 'number',
+      key: 'number',
     },
     {
       title: '地址',
@@ -32,11 +32,11 @@ const columns = [
         title: '合同',
         dataIndex: 'contract',
         key: 'contract',
-        render:()=>(
-            <span>
-                <a href="http://www.baidu.com">http://www.baidu.com</a>
-            </span>
-        ),
+        // render:()=>(
+        //     <span>
+        //         <a href="http://www.baidu.com">http://www.baidu.com</a>
+        //     </span>
+        // ),
     },
     {
       title: '操作',
@@ -54,35 +54,21 @@ const columns = [
       ),
     },
   ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      member: 32,
-      address: '1号楼一单元402',
-      time:'2019-07-06',
-    //   contract:"http://www.baidu.com",
-    //   tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      member: 42,
-      address: '1号楼一单元402',
-      time:'2019-07-06',
-    //   contract:"http://www.baidu.com",
-    //   tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      member: 32,
-      address: '1号楼一单元402',
-      time:'2019-07-06',
-    //   contract:"http://www.baidu.com",
-    //   tags: ['cool', 'teacher'],
-    },
-  ];
+
+//   数据
+const data = [];
+for (let i = 0; i < 20; i++) {
+  data.push({
+    name: i,
+    number: `Edward King ${i}`,
+    address: `London, Park Lane no. ${i}`,
+    time:i,
+    contract:`http://www.${i}`
+  });
+}
+
+
+  
 
 class Resident extends Component {
     state = {  }

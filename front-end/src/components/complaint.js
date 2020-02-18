@@ -6,27 +6,33 @@ import Detail from './detail';
 
 const {Search} = Input;
 
+// 表头
 const columns = [
     {
-      title: '姓名',
+      title: '投诉人',
       dataIndex: 'name',
       key: 'name',
       render: text => <a>{text}</a>,
     },
     {
-        title: '家庭地址',
-        dataIndex: 'address',
-        key: 'address',
+        title: '投诉事务',
+        dataIndex: 'complaint',
+        key: 'complaint',
     },
     {
-      title: '职位',
-      dataIndex: 'position',
-      key: 'position',
+      title: '投诉日期',
+      dataIndex: 'time',
+      key: 'time',
     },
     {
-        title: '员工合同',
-        dataIndex: 'contract',
-        key: 'contract',
+        title: '受理人',
+        dataIndex: 'person',
+        key: 'person',
+    },
+    {
+        title: '投诉状态',
+        dataIndex: 'state',
+        key: 'state',
     },
     {
       title: '操作',
@@ -38,7 +44,6 @@ const columns = [
                 to={{pathname:'/detail'}}>
             <Icon type="eye"/>
             </NavLink>
-            <NavLink to={{pathname:'/addres'}}><Icon type="edit"/></NavLink>
             <a style={{padding:10}}><Icon type="delete"/></a>
         </span>
       ),
@@ -50,16 +55,17 @@ const data = [];
 for (let i = 0; i < 20; i++) {
   data.push({
     name: i,
-    address: `London, Park Lane no. ${i}`,
-    position:`${i}`,
-    contract:`http://www.${i}`
+    complaint: `London, Park Lane no. ${i}`,
+    time:`${i}`,
+    person:`http://www.${i}`,
+    state:`已解决`
   });
 }
 
 
   
 
-class Personnel extends Component {
+class Complaint extends Component {
     state = {  }
     
     render() { 
@@ -72,7 +78,7 @@ class Personnel extends Component {
                     paddingBottom:5,
                     fontSize:14,
                     color:'#607D8B'}}>
-                人事管理
+                投诉
                 </div>
                 <div style={{marginTop:15}}>
                     <Search
@@ -88,4 +94,4 @@ class Personnel extends Component {
     }
 }
  
-export default Personnel;
+export default Complaint;

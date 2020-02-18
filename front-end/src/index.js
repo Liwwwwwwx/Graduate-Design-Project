@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {HashRouter as Router,Route,Link,NavLink,Redirect} from 'react-router-dom';
+import Login from './Login';
 
 ReactDOM.render(
     <Router><App /></Router>, 
