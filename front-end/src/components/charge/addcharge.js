@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Layout } from 'antd';
 import { Button, Modal, Form, Input, notification} from 'antd';
 
 
@@ -13,43 +12,43 @@ class Forms extends Component {
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return ( 
-      <Form
         // form={form}
+      <Form
         layout="vertical"
         name="form_in_modal"
         initialValues={{ modifier: 'public' }}
     >
         <Form.Item
-        name="name"
+        name="user_name"
         label="姓名"
         rules={[{ required: true, message: '请输入姓名' }]}
         >
-        {getFieldDecorator('name')(   
+        {getFieldDecorator('user_name')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item name="number" label="电话号码">
-        {getFieldDecorator('number')(   
+        <Form.Item name="Proprty_fees" label="物业费">
+        {getFieldDecorator('Proprty_fees')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="身份证号"  >
-        {getFieldDecorator('idenity')(   
+        <Form.Item label="供暖费"  >
+        {getFieldDecorator('Water_fees')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="地址" >
-        {getFieldDecorator('address')(   
+        <Form.Item label="煤气费"  >
+        {getFieldDecorator('gas')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="家庭成员" help="">
-        {getFieldDecorator('family')(   
+        <Form.Item label="电费" >
+        {getFieldDecorator('Electricity_fees')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="合同" help="">
-        {getFieldDecorator('contract')(   
+        <Form.Item label="缴费状态" help="">
+        {getFieldDecorator('Charge_state')(   
             <Input />
         )}
         </Form.Item>

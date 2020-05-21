@@ -1,100 +1,94 @@
 import React, { Component } from 'react';
-import { Table,  Icon, Layout,Input,Modal,Button} from 'antd';
+import { Table,Button, Layout,Input,Form,Modal,Radio} from 'antd';
 import {HashRouter as Router,Route,Link,NavLink,Redirect} from 'react-router-dom';
 import 'whatwg-fetch';
-import Forms from './addResident';
+import Forms from './addcharge';
 
 const {Search} = Input;
 
-
-class Resident extends Component {
+class Charge extends Component {
     constructor(props){
         super(props);
-        this.state = { 
-            dataSource:[],
-            visible: false,
-         };
+        this.state={
+            dataSource:[
+
+            ],
+            visible:false,
+        };
         this.columns = [
             {
-              title: '房主基本信息',
+              title: '姓名',
               dataIndex: 'user_name',
               key: 'name',
               render: text => <a>{text}</a>,
             },
             {
-              title: '电话号码',
-              dataIndex: 'user_phone',
-              key: 'number',
+              title: '物业费',
+              dataIndex: 'Proprty_fees',
+              key: 'property',
             },
             {
-              title: '地址',
-              dataIndex: 'user_address',
-              key: 'address',
+              title: '供暖费',
+              dataIndex: 'Water_fees',
+              key: 'heating',
             },
             {
-                title: '购房时间',
-                dataIndex: 'user_time_purchase',
-                key: 'time',
+                title: '煤气费',
+                dataIndex: 'Gas_fees',
+                key: 'heating',
+              },
+            {
+                title: '电费',
+                dataIndex: 'Electricity_fees',
+                key: 'electricity',
+              },
+            {
+                title: '缴费状态',
+                dataIndex: 'Charge_state',
+                key: 'state',
             },
             {
-                title: '合同',
-                dataIndex: 'user_contract',
-                key: 'contract',
-            },
-            {
-              title: '操作',
-              key: 'action',
-              render: (text, record,index) => (
-                <span >
-                    <NavLink 
+                title: '操作',
+                key: 'action',
+                render: (text, record,index) => (
+                  <span >
+                      <NavLink 
                         style={{padding:10}} 
-                        to={{pathname:'/detail/'+index}}>
-                     <Button type="primary" ghost
-                            size="small">
-                      查看
-                      </Button>
-                    </NavLink>
-                    <NavLink 
-                        style={{padding:10}} 
-                        to={{pathname:'/modify/'+index}}>
-                     <Button type="primary" ghost
-                            size="small">
-                      修改
-                      </Button>
-                    </NavLink>
-                    <Button type="danger" ghost size="small" onClick={this.onDelete.bind(this,this.state.dataSource[index].user_id,index)}>删除</Button>
-                </span>
-              ),
-            },
+                        to={{pathname:'/modch/'+index}}>
+                        <Button type="primary" ghost
+                                size="small">
+                        修改
+                        </Button>
+                        </NavLink>
+                      <Button type="danger" ghost size="small" onClick={this.onDelete.bind(this,this.state.dataSource[index].user_id,index)}>删除</Button>
+                  </span>
+                ),
+              },
           ];
-    }
-
+    };
     componentDidMount(){
-        fetch('/userInfo', {
+        fetch('/chargeInfo', {
             method: "GET",
             mode: "cors",
             headers:{
                 'Content-Type': 'application/json',
-                'Accept':'Access-Control-Allow-Origin'
-            },
-            
+            },            
         }).then(response => response.json())
             .then(result => {
+                // console.log(result.data);
                 this.setState({dataSource:result.data})
-                // console.log(this.state.dataSource);
             }).catch(function (e) {
             console.log("fetch fail");
         });
       }
-
+    // 弹出框
     showModal = () => {
         this.setState({
           visible: true,
         });
       };
-    
-    handleOk = (e) => {    
-        fetch('/userInfo/insertone', {
+    handleOk = (e) => {
+        fetch('/chargeInfo/insertone', {
             method: "POST",
             mode: "cors",
             headers:{
@@ -102,12 +96,12 @@ class Resident extends Component {
                 'Accept':'Access-Control-Allow-Origin'
             },
             body:JSON.stringify({
-                　'name':this.formRef.getItemsValue().name,
-                　'idenity' : this.formRef.getItemsValue().idenity,
-                  'phone':this.formRef.getItemsValue().number,
-                  'homeowners':this.formRef.getItemsValue().family,
-                  'address':this.formRef.getItemsValue().address,
-                  'contract':this.formRef.getItemsValue().contract,
+                　'user_id':this.formRef.getItemsValue().user_name,
+                　'property' : this.formRef.getItemsValue().Proprty_fees,
+                  'water':this.formRef.getItemsValue().Water_fees,
+                  'electricity':this.formRef.getItemsValue().gas,
+                  'gas':this.formRef.getItemsValue().Electricity_fees,
+                  'state':this.formRef.getItemsValue().Charge_state,
                　　}),
             
         }).then(response => response.json())
@@ -119,45 +113,26 @@ class Resident extends Component {
         this.setState({
             visible: false,
         });
-        setTimeout(()=>{
-            fetch('/userInfo', {
-                method: "GET",
-                mode: "cors",
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Accept':'Access-Control-Allow-Origin'
-                },
-                
-            }).then(response => response.json())
-                .then(result => {
-                    this.setState({dataSource:result.data})
-                    // console.log(this.state.dataSource);
-                }).catch(function (e) {
-                console.log("fetch fail");
-            });
-        },100)
     };
-    
     handleCancel = (e) => {
         console.log(e);
         this.setState({
           visible: false,
         });
     };
-    
+
     // 删除表格列
     onDelete(id,index){
-        console.log(id,index);
         const dataSource = [...this.state.dataSource];
         dataSource.splice(index, 1);//index为获取的索引，后面的 1 是删除几行
-        fetch('/userInfo/del',{
+        fetch('/chargeInfo/del',{
             method:'POST',
             mode: "cors",
             headers:{
                 'Content-Type': 'application/json'
             },
             body:JSON.stringify({
-                　　'user_id' : id
+                　　'charge_id' : id
                　　}),
         }).then(respose=>respose.json())
             .then(result=>{
@@ -167,11 +142,9 @@ class Resident extends Component {
             })
         this.setState({ dataSource });
     }
-    
+
     render() { 
-        
         return ( 
-            // <li>单元</li>
             <Layout>
                 <div style={{
                     marginTop:12,
@@ -179,9 +152,9 @@ class Resident extends Component {
                     paddingBottom:5,
                     fontSize:14,
                     color:'#607D8B'}}>
-                <span>小区住户信息</span>
+                <span>收费管理</span>
                 <a style={{float: 'right', marginRight: '55px'}} onClick={this.showModal}>添加信息</a>
-                <Modal title="修改信息"
+                <Modal title="添加信息"
                         visible={this.state.visible}
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}
@@ -199,17 +172,11 @@ class Resident extends Component {
                     onSearch={value => console.log(value)}
                     style={{ width: 200 }}
                     />
-                    
                 </div>
-                <Table 
-                    columns={this.columns} 
-                    dataSource={this.state.dataSource} 
-                    style={{marginTop:20}}  
-                />
+                <Table columns={this.columns} dataSource={this.state.dataSource} style={{marginTop:20}} />
             </Layout>
-            
          );
     }
 }
  
-export default Resident;
+export default Charge;

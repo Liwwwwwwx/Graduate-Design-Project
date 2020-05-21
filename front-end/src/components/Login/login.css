@@ -1,0 +1,26 @@
+.ant-layout{
+    height: -webkit-fill-available;
+}
+.login{
+    padding-top:150px;
+    margin:0 auto;
+}
+.logo-text{
+    text-align: center;
+}
+.text{
+    font-size: 24px;
+    color:#333;     
+}
+/* .form-text {
+    margin: 0 auto;
+} */
+.ant-form{
+    width:300px;
+}
+.ant-form-item{
+    text-align: center;
+}
+.login-form-button{
+    width:300px;
+}

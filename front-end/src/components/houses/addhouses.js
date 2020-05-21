@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Layout } from 'antd';
 import { Button, Modal, Form, Input, notification} from 'antd';
 
 
@@ -13,43 +12,38 @@ class Forms extends Component {
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return ( 
-      <Form
         // form={form}
+      <Form
         layout="vertical"
         name="form_in_modal"
         initialValues={{ modifier: 'public' }}
     >
         <Form.Item
-        name="name"
-        label="姓名"
-        rules={[{ required: true, message: '请输入姓名' }]}
+        name="structure"
+        label="房屋构造"
+        rules={[{ required: true }]}
         >
-        {getFieldDecorator('name')(   
+        {getFieldDecorator('structure')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item name="number" label="电话号码">
-        {getFieldDecorator('number')(   
+        <Form.Item name="area" label="面积">
+        {getFieldDecorator('area')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="身份证号"  >
-        {getFieldDecorator('idenity')(   
-            <Input />
-        )}
-        </Form.Item>
-        <Form.Item label="地址" >
+        <Form.Item label="地址"  >
         {getFieldDecorator('address')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="家庭成员" help="">
-        {getFieldDecorator('family')(   
+        <Form.Item label="出售信息"  >
+        {getFieldDecorator('selling')(   
             <Input />
         )}
         </Form.Item>
-        <Form.Item label="合同" help="">
-        {getFieldDecorator('contract')(   
+        <Form.Item label="基础设备" >
+        {getFieldDecorator('equipment')(   
             <Input />
         )}
         </Form.Item>
