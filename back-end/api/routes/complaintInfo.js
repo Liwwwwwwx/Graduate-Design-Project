@@ -1,15 +1,15 @@
-const UserInfoData = require('../models/userInfo.js');
+const ComplaintInfoData = require('../models/complaintInfo.js');
 const db = require('../models/database.js');
 var express = require('express');
 var router = express.Router();
 
-var userInfoData = new UserInfoData();
+var complaintInfoData = new ComplaintInfoData();
 
 
 router.get('/', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'text/plain; charset = "utf-8"');
-  userInfoData.getUserInfo((err, results) => {
+  complaintInfoData.getComplaintInfo((err, results) => {
     if (err) {
       console.error(err);
       res.send(JSON.stringify({
@@ -27,53 +27,13 @@ router.get('/', (req, res) => {
   });
 });
 
-router.all('/paging',(req, res)=>{
-  res.header('Access-Control-Allow-Origin','*');
-
-  var param = '';
-
-  if(req.method == 'POST'){
-    param = req.body;
-  } else {
-    param = req.query || req.params;
-  }
-
-  if(param.page == '' || param.page == null || param.page == undefined) {
-    res.send(JSON.stringify({
-      mgs:'请传入参数page',
-      status:'101'
-    }));
-    return;
-  }
-
-  var start = (param.page - 1) * 9;
-  var sql = 'select * from user_info limit ' + start + ',9';
-  db.query(sql, (err, results)=>{
-    if(err) {
-      console.error(err);
-      res.send(JSON.stringify({
-        msg:'获取失败',
-        status:'102',
-      }))
-    } else {
-      res.send(JSON.stringify({
-        status:'200',
-        msg:'获取成功',
-        data:results,
-      }))
-    }
-  })
-})
-
 router.post('/insertone', (req,res)=>{
   res.header('Access-Control-Allow-Origin','*');
-  const name = req.body.name,
-        idenity = req.body.idenity,
-        phone = req.body.phone,
-        homeowners = req.body.homeowners,
-        address = req.body.address,
-        contract = req.body.contract;
-  userInfoData.insertOne(name,idenity,phone,homeowners,address,contract, (err) => {
+  const user_id = req.body.user_id,
+        content = req.body.content,
+        state = req.body.state,
+        receiver = req.body.receiver;
+  complaintInfoData.insertOne(user_id, content, state, receiver, (err) => {
     if(err) {
       console.error(err);
       res.send(JSON.stringify({
@@ -91,11 +51,9 @@ router.post('/insertone', (req,res)=>{
   })
 })
 
-router.post('/del', (req, res) => {
+router.post('/update', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
-  const id = req.body.user_id;
-  console.log(id);
-  userInfoData.deleteone(id, (err) =>{
+  complaintInfoData.upadateone(req.body.id,req.body.content,req.body.state,req.body.receiver, (err) =>{
     if (err) {
       console.error(err);
       res.send(JSON.stringify({
@@ -112,9 +70,10 @@ router.post('/del', (req, res) => {
   })
 })
 
-router.post('/update', (req, res) => {
+router.post('/del', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
-  userInfoData.upadateone(req.body.name,req.body.identity,req.body.phone,req.body.homeowners,req.body.address,req.body.contract, (err) =>{
+  const id = req.body.Complaint_id;
+  complaintInfoData.deleteone(id, (err) =>{
     if (err) {
       console.error(err);
       res.send(JSON.stringify({
@@ -126,15 +85,16 @@ router.post('/update', (req, res) => {
     
     res.send(JSON.stringify({
       status:'200',
-      msg:'成功'
+      msg:'成功',
+      //userCount:count
     }))
   })
 })
 
-//获取用户总数量
-router.get('/usercount', (req,res) =>{
+//获取总数量
+router.get('/complaintcount', (req,res) =>{
   res.header('Access-Control-Allow-Origin','*');
-    userInfoData.getCount((err, count)=>{
+  complaintInfoData.getCount((err, count)=>{
       if (err) {
         console.error(err);
         res.send(JSON.stringify({
@@ -147,11 +107,9 @@ router.get('/usercount', (req,res) =>{
       res.send(JSON.stringify({
         status:'200',
         msg:'成功',
-        userCount:count
+        //userCount:count
       }))
     })
 })
-
-
 
 module.exports = router;

@@ -5,7 +5,13 @@ var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userInfo');
+var loginRouter = require('./routes/login');
 var upload = require('./routes/upload');
+var houseRouter = require('./routes/houseInfo');
+var chargeRouter = require('./routes/chargeInfo');
+var complaintRouter = require('./routes/complaintInfo');
+var repairRouter = require('./routes/repairInfo');
+var staffRouter = require('./routes/staffInfo');
 
 var app = express();
 
@@ -20,7 +26,14 @@ app.use('/public',express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/userInfo', usersRouter);
+app.use('/login',loginRouter);
 app.use('/upload',upload);
+app.use('/houseInfo',houseRouter);
+app.use('/chargeInfo',chargeRouter);
+app.use('/repairInfo',repairRouter);
+app.use('/complaintInfo',complaintRouter);
+app.use('/staffInfo',staffRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
